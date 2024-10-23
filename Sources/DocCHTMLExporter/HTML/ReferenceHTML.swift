@@ -90,7 +90,9 @@ extension DocCArchive.Reference {
         return ref.abstract.generateHTML(in: ctx)
         
       case .image(let ref):
-        return ref.alt?.htmlEscaped ?? ""
+//        return ref.alt?.htmlEscaped ?? ""
+        return ref.alt.htmlEscaped // ref.alt が必ず存在する場合
+
 
       case .link(let ref):
         return ref.title.htmlEscaped
@@ -150,7 +152,9 @@ extension DocCArchive.ImageReference {
   func generateHTML(in ctx: DZRenderingContext) -> String {
     guard let variant = bestVariant(for: ctx.traits) else {
       assertionFailure("Got no image variant?")
-      return "<!-- invalid image ref -->\(alt?.htmlEscaped ?? "")"
+//      return "<!-- invalid image ref -->\(alt?.htmlEscaped ?? "")"
+      return "<!-- invalid image ref -->\(alt.htmlEscaped)"
+
     }
     
     let media : String = {
@@ -173,7 +177,8 @@ extension DocCArchive.ImageReference {
     var ms = "<picture><source\(media) srcset='\(srcset)'>"
 
     ms += "<img"
-    if let alt = alt, !alt.isEmpty { ms += " alt='\(alt.htmlEscaped)'" }
+//    if let alt = alt, !alt.isEmpty { ms += " alt='\(alt.htmlEscaped)'" }
+    if !alt.isEmpty { ms += " alt='\(alt.htmlEscaped)'" }
     ms += " srcset='\(srcset)'"
     ms += " src='\(url.htmlEscaped)'"
     if let size = variant.size { ms += " width='\(size.width)' height='auto'" }
