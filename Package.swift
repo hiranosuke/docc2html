@@ -23,7 +23,7 @@ let package = Package(
   
   targets: [
     .target(name         : "DocCHTMLExporter",
-            dependencies : [ "DocCArchive", "mustache", "Logging" ]),
+            dependencies : [ "DocCArchive", "Mustache", "Logging" ]),
     .target(name         : "DocCStaticExporter",
             dependencies : [ "DocCArchive", "DocCHTMLExporter", "Logging" ]),
     .target(name         : "docc2html",
